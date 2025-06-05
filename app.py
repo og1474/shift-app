@@ -1,18 +1,44 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,redirect
+import sqlite3
+from datetime import datetime
 
 app = Flask(__name__)
-@app.route("/",methods=["GET","POST"]) ##/はトップページ
+HOURLY_WAGE = 1100 ##時給（1100円で固定）
+
+def init_db():
+    conn = sqlite3.connect("shift.db")
+    c = conn.cursor() ##すでにある場合は上書きしない
+    c.execute('''
+              CREATE TABLE IF NOT EXISTS shifts ( 
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                date TEXT NOT NULL,
+                hours REAL NOT NULL
+              )
+            ''')
+    conn.commit()
+    conn.close()
+
+@app.route("/",methods=['GET','POST']) ##/はトップページ
 def index():
-    salary = None
-    hourly_wage = 1100 ##時給（1100円で固定）
+    conn = sqlite3.connect('shift.db')
+    c = conn.cursor()
 
-    if request.method == "POST": ##ユーザーがフォームを送信=POSTした時に実行
-        try:
-            hours = float(request.form["hours"]) ##フォームの入力を取り出す、floatは小数点ありの数字に変換
-            salary = int (hours * hourly_wage) ##intは小数点以下切り捨て
-        except ValueError:
-            salary = "エラー：数値を入力してください"
-    return render_template("index.html",salary=salary) ##salaryにsalaryを代入しindex.htmlを返す
+    if request.method == 'POST': ##ユーザーがフォームを送信=POSTした時に実行
+        date = request.form['date'] ##dateで入力された日付を取得
+        hours = float(request.form['hours']) ##hoursで入植された数字を取得して小数に変換
+        c.execute('INSERT INTO shifts (date,hours) VALUES(?,?)',(date,hours)) ##テーブルに保存
+        conn.commit()
+    
+    c.execute('SELECT date,hours FROM shifts') ##データベースから記録を取得
+    data = c.fetchall()
 
-if __name__ == "__main__":
+    #合計給与を計算
+    total_hours = sum(row[1] for row in data) ##1行ごとに2つめの値を足す
+    total_salary = total_hours * HOURLY_WAGE
+
+    conn.close()        
+    return render_template("index.html",data=data,total=total_salary) ##salaryにsalaryを代入しindex.htmlを返す
+
+if __name__ == '__main__': ##このファイルを直接実行したときだけFlaskを起動
+    init_db()
     app.run(debug=True)
