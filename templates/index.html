@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>シフト計算アプリ</title>
+</head>
+<body>
+    <h1>シフト計算アプリ</h1>
+
+    <form method="POST">
+        <label for="hours">出勤時間(時間単位)：</label>
+        <input type="number" name="hours" step="0.1" required>
+        <br><br>
+        <input type="submit" value="給料を計算する">
+    </form>
+
+    {% if salary is not none %}
+        <h2>計算結果：{{ salary }}円</h2>
+    {% endif %}
+</body>
+</html>
