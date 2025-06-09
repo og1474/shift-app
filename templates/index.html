@@ -17,8 +17,8 @@
 
     <h2>勤務履歴</h2>
     <ul>
-    {% for date,hours,id in data %}
-        <li>{{ date }} | {{ hours }} 時間 
+    {% for id,date,hours,breaktime in data %}
+        <li>{{ date }} | {{ hours }} 時間 | 休憩{{ breaktime }}時間
         <form method="POST">
             <input type="hidden" name="id" value="{{ id }}">
             <button type="submit" name="action" value="delete">削除</button>
