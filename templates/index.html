@@ -2,25 +2,33 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>シフト計算アプリ</title>
+    <title>シフト管理アプリ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>シフト計算アプリ</h1>
+    <h1>シフト管理アプリ</h1>
 
     <form method="POST">
         <label>日付:<input type="date" name="date" required></label>
-        <label>勤務時間：<input type="number" name="hours" step="0.1" required><label>
-        <input type="submit" value="登録">
+        <label>勤務時間：<input type="number" name="hours" step="0.1" required>時間<label>
+        <button type="submit" name="action" value="add">追加</button>
         <br><br>
     </form>
 
     <h2>勤務履歴</h2>
     <ul>
-    {% for date,hours in data %}
-        <li>{{ date }} - {{ hours }} 時間</li>
+    {% for date,hours,id in data %}
+        <li>{{ date }} | {{ hours }} 時間 
+        <form method="POST">
+            <input type="hidden" name="id" value="{{ id }}">
+            <button type="submit" name="action" value="delete">削除</button>
+        </form>
+    </li>
     {% endfor %}
-    </ul>
+    </ul><br>
 
+    <h2>給与情報</h2>
+    <p>時給 {{ HOURLY_WAGE }}円 | 交通費(往復) {{ FARE }}円</p>
     <h2>合計給与: {{ total }} 円</h2>
 </body>
 </html>
