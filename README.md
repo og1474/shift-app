@@ -36,4 +36,4 @@ python app.py
 ~~~
 
 ## 更新履歴
-詳細な更新履歴は[GitHubのコミットログ](https://github.com/ou1474/shift-app/commits/main)を参照してください。
+詳細な更新履歴は[GitHubのコミットログ](https://github.com/og1474/shift-app/commits/main)を参照してください。
