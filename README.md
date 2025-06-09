@@ -27,8 +27,10 @@
 
 ## 起動方法(ローカル)
 1.必要なパッケージをインストール
-'''bash
+~~~bash
 pip install flask
+~~~
 2.実行
-'''bash
+~~~bash
 python app.py
+~~~
