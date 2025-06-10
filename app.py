@@ -2,10 +2,7 @@ from flask import Flask,render_template,request,redirect
 import sqlite3
 from datetime import datetime
 
-
 app = Flask(__name__)
-HOURLY_WAGE = 1100 ##時給（1100円で固定）
-FARE = 200 ##交通費（とりあえず固定）
 
 def init_setting_db():
     conn_setting = sqlite3.connect('setting.db')
@@ -14,14 +11,14 @@ def init_setting_db():
     c_setting.execute('''
         CREATE TABLE IF NOT EXISTS settings (
             id INTEGER PRIMARY KEY CHECK (id = 1),
-            wage REAL NOT NULL,
-            fare REAL NOT NULL  
+            wage REAL,
+            fare REAL  
         )
     ''')
-    ##初期データ
+    ##データが存在しない時だけ初期値を入れる
     c_setting.execute('SELECT COUNT(*) FROM settings')
     if c_setting.fetchone()[0] == 0:
-        c_setting.execute('INSERT INTO settings (id,wage,fare) VALUES(1,1,0)')
+        c_setting.execute('INSERT INTO settings (id,wage,fare) VALUES (1,?,?)',(1000,0))
     conn_setting.commit()
     conn_setting.close()
 
@@ -53,6 +50,7 @@ def index():
             wage = float(request.form['wage'])
             fare = float(request.form['fare'])
             c_setting.execute('UPDATE settings SET wage = ?, fare = ? WHERE id = 1', (wage, fare))
+            conn_setting.commit() ##ここは忘れない
         elif action == 'add':
             date = request.form['date'] ##dateで入力された日付を取得
             hours = float(request.form['hours']) ##hoursで入植された数字を取得して小数に変換
