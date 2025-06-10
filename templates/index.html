@@ -9,8 +9,18 @@
     <h1>ShiftCalc</h1>
 
     <form method="POST">
+        <label>時給:<input type="number" name="wage" required>円</label>
+        <label>交通費(往復):<input type="number" name="fare" required>円</label>
+        <button type="submit" name="action" value="setting-add">保存</button>
+        <br>
+    </form>
+
+    <h2>現在の情報</h2>
+    <p>時給 {{ wage }}円 | 交通費(往復) {{ fare }}円</p><br><br>
+
+    <form method="POST">
         <label>日付:<input type="date" name="date" required></label>
-        <label>勤務時間：<input type="number" name="hours" step="0.1" required>時間<label>
+        <label>勤務時間:<input type="number" name="hours" step="0.1" required>時間<label>
         <button type="submit" name="action" value="add">追加</button>
         <br><br>
     </form>
@@ -27,8 +37,6 @@
     {% endfor %}
     </ul><br>
 
-    <h2>給与情報</h2>
-    <p>時給 {{ HOURLY_WAGE }}円 | 交通費(往復) {{ FARE }}円</p>
     <h2>合計給与: {{ total }} 円</h2>
 </body>
 </html>
