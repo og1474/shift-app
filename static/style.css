@@ -1,9 +1,41 @@
 body {
     text-align: center;
 }
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 60px;
+  color: #FFF;
+  -webkit-text-stroke: 2px black;
+  paint-order: stroke;
+}
 form {
     display: inline;
 }
-li {
-    margin-bottom: 8px;
+table {
+    margin: 0 auto;
+}
+button.add {
+    display: inline-block;
+    color: #FFF;
+    font-size: 16px;
+    background-color: #ffb2b2;
+    padding: .3rem .6rem;
+    border: none;
+}
+button.add:hover {
+    background-color: #ff9e9e;
+}
+button.delete {
+    display: inline-block;
+    color: #FFF;
+    font-size: 16px;
+    background-color: #a6d8e4;
+    padding: .3rem .6rem;
+    border: none;
+}
+button.delete:hover {
+    background-color: #91cbe0;
 }

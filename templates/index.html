@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>ShiftCalc</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>ShiftCalc</h1>
@@ -11,7 +14,7 @@
     <form method="POST">
         <label>時給:<input type="number" name="wage" required>円</label>
         <label>交通費(往復):<input type="number" name="fare" required>円</label>
-        <button type="submit" name="action" value="setting-add">保存</button>
+        <button type="submit" name="action" value="setting-add" class="add">保存</button>
         <br>
     </form>
 
@@ -21,21 +24,23 @@
     <form method="POST">
         <label>日付:<input type="date" name="date" required></label>
         <label>勤務時間:<input type="number" name="hours" step="0.1" required>時間<label>
-        <button type="submit" name="action" value="add">追加</button>
+        <button type="submit" name="action" value="add" class="add">追加</button>
         <br><br>
     </form>
 
     <h2>勤務履歴</h2>
-    <ul>
-    {% for id,date,hours,breaktime in data %}
-        <li>{{ date }} | {{ hours }} 時間 | 休憩{{ breaktime }}時間
-        <form method="POST">
-            <input type="hidden" name="id" value="{{ id }}">
-            <button type="submit" name="action" value="delete">削除</button>
-        </form>
-    </li>
-    {% endfor %}
-    </ul><br>
+    <table>
+        <tr><th>日付</th><th>勤務時間</th><th>休憩</th></tr>
+        {% for id,date,hours,breaktime in data %}
+            <tr>
+                <td>{{ date }}</td><td>{{ hours }}時間</td><td>{{ breaktime }}時間</td>
+                <td><form method="POST">
+                    <input type="hidden" name="id" value="{{ id }}">
+                    <button type="submit" name="action" value="delete" class="delete">削除</button>
+                </form></td>
+            </tr>
+        {% endfor %}
+    </table><br>
 
     <h2>合計給与: {{ total }} 円</h2>
 </body>
