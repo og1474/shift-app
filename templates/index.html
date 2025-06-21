@@ -28,24 +28,10 @@
         <br><br>
     </form>
 
-<!--    <h2>勤務履歴</h2>
-    <table>
-        <tr><th>日付</th><th>勤務時間</th><th>休憩</th></tr>
-        {% for id,date,hours,breaktime in data %}
-            <tr>
-                <td>{{ date }}</td><td>{{ hours }}時間</td><td>{{ breaktime }}時間</td>
-                <td><form method="POST">
-                    <input type="hidden" name="id" value="{{ id }}">
-                    <button type="submit" name="action" value="delete" class="delete">削除</button>
-                </form></td>
-            </tr>
-        {% endfor %}
-    </table><br> -->
-
     <div class="tab-switch">
         {% for i in range(1,13) %}
             {% set month = '%02d' % i %}
-            <label><input type="radio" name="TAB">{{ i }}月</label>
+            <label><input type="radio" name="TAB"{% if i == 1 %}checked{% endif %}>{{ i }}月</label>
             <div class="tab-contents">
                 <table>
                     <tr><th>日付</th><th>勤務時間</th><th>休憩</th></tr>

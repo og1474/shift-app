@@ -24,7 +24,7 @@ button.add {
     color: #FFF;
     font-size: 16px;
     background-color: #ffb2b2;
-    padding: .3rem .6rem;
+    padding: 5px 12px;
     border: none;
 }
 button.add:hover {
@@ -35,11 +35,21 @@ button.delete {
     color: #FFF;
     font-size: 16px;
     background-color: #a6d8e4;
-    padding: .3rem .6rem;
+    padding: 5px 12px;
     border: none;
 }
 button.delete:hover {
     background-color: #91cbe0;
+}
+
+table {
+    border-collapse: collapse;
+}
+th,td {
+    padding: 10px 8px;
+}
+tr {
+    border-bottom: 1px solid #adadad;
 }
 
 .tab-switch {
@@ -53,7 +63,7 @@ button.delete:hover {
     flex: 1 1 auto;
     order: -1;
     position: relative;
-    padding: .7em 1em;
+    padding: 10px 12px;
     background-color: #f2f3f4;
     color: #999;
     text-align: center;
@@ -68,7 +78,7 @@ button.delete:hover {
 }
 .tab-switch > div {
     display: none;
-    width: 75%;
+    width: 100%;
     padding: 1.5em 1em;
 }
 .tab-switch label:has(:checked) + div {
