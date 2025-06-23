@@ -18,12 +18,14 @@
         <br>
     </form>
 
-    <h2>現在の情報</h2>
-    <p>時給 {{ wage }}円 | 交通費(往復) {{ fare }}円</p><br><br>
+    <table>
+        <tr><th>時給</th><th>交通費(往復)</th></tr>
+        <tr><td>{{ wage }}円</td><td>{{ fare }}円</td></tr>
+    </table><br>
 
     <form method="POST">
         <label>日付:<input type="date" name="date" required></label>
-        <label>勤務時間:<input type="number" name="hours" step="0.1" required>時間<label>
+        <label>勤務時間:<input type="number" name="hours" step="0.01" required>時間<label>
         <button type="submit" name="action" value="add" class="add">追加</button>
         <br><br>
     </form>
@@ -51,6 +53,7 @@
         {% endfor %}
     </div>
 
-    <h2>合計給与: {{ total }} 円</h2>
+    <h2>合計給与額 {{ total }} 円</h2>
+    <h2>103万の壁まであと {{ 1030000-total }}円</h2>
 </body>
 </html>
